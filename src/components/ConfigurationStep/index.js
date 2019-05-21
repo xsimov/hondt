@@ -1,1 +1,1 @@
-export { ConfigurationStep as default } from "./ConfigurationStep"
+export { ConfigurationSteps as default } from "./ConfigurationSteps"
