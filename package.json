@@ -3,9 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.10",
+    "@emotion/is-prop-valid": "^0.7.3",
+    "@emotion/styled": "^10.0.11",
+    "emotion-theming": "^10.0.10",
+    "jest": "^24.8.0",
+    "mineral-ui": "^0.58.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "react-testing-library": "^7.0.1",
+    "styled-components": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
