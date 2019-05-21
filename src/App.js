@@ -16,15 +16,15 @@ const MainContent = styled.div`
 const router = navigation => {
   switch (navigation) {
     default:
-    case "welcome":
-      return <Welcome />
     case "configuration":
       return <ConfigurationStep />
+    case "welcome":
+      return <Welcome />
   }
 }
 
 const App = () => {
-  const [navigation, setNavigation] = useState("welcome")
+  const [navigation, setNavigation] = useState("configuration")
 
   const goToConfiguration = () => setNavigation("configuration")
 
