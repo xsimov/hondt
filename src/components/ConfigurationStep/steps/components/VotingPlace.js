@@ -10,7 +10,6 @@ const HorizontalLabel = styled.label`
   margin-right: 1rem;
   align-items: center;
 `
-
 const HorizontalText = styled(Text)`
   margin: 0 1rem 0 0;
 `
@@ -18,32 +17,24 @@ const ColorInput = styled(TextInput)`
   width: 5rem;
 `
 
-const Party = ({ party, removeParty, updateParty, className }) => (
+const VotingPlace = ({ place, removePlace, updatePlace, className }) => (
   <div className={className}>
     <HorizontalLabel>
       <HorizontalText>Nom:</HorizontalText>
       <TextInput
-        value={party.name}
-        onChange={e => updateParty(party.id, "name", e.target.value)}
+        onChange={e => updatePlace(place.id, "name", e.target.value)}
+        value={place.name}
       />
     </HorizontalLabel>
-    <HorizontalLabel>
-      <HorizontalText>Color:</HorizontalText>
-      <ColorInput
-        type="color"
-        value={party.color || "#FFFFFF"}
-        onChange={e => updateParty(party.id, "color", e.target.value)}
-      />
-    </HorizontalLabel>
-    <Button variant="danger" onClick={removeParty}>
-      Esborrar partit
+    <Button variant="danger" onClick={removePlace}>
+      Esborrar col·legi
     </Button>
   </div>
 )
 
-const StyledParty = styled(Party)`
+const StyledVotingPlace = styled(VotingPlace)`
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
 `
-export default StyledParty
+export default StyledVotingPlace

@@ -2,7 +2,10 @@ import React, { useState } from "react"
 import styled from "@emotion/styled"
 import Button from "mineral-ui/Button"
 
-import { StepOne } from "./steps/StepOne"
+import NumberOfSeats from "./steps/NumberOfSeats"
+import PartiesGenerator from "./steps/PartiesGenerator"
+import VotingPlacesGenerator from "./steps/VotingPlacesGenerator"
+import { useCollection } from "./steps/ConfigurationContext"
 
 const FormWrapper = styled.div`
   display: flex;
@@ -31,21 +34,25 @@ const useCutOutPercentage = () => {
 
 const useSteps = () => {
   const [step, setStep] = useState(0)
-  const steps = [StepOne]
+  const steps = [NumberOfSeats, PartiesGenerator, VotingPlacesGenerator]
 
   const nextStep = () => {
     setStep(step + 1)
   }
 
   const previousStep = () => {
-    step != 0 && setStep(step - 1)
+    step !== 0 && setStep(step - 1)
   }
 
-  return [step, previousStep, nextStep, steps]
+  const firstStep = () => step === 0
+  const lastStep = () => step === steps.length - 1
+
+  return [step, previousStep, nextStep, steps, firstStep, lastStep]
 }
 
 const PaginationButtons = styled.div`
   display: flex;
+  margin-bottom: 1rem;
 
   button {
     display: flex;
@@ -56,10 +63,20 @@ const PaginationButtons = styled.div`
 const ConfigurationSteps = () => {
   const [seatsNumber, setSeatsNumber] = useSeats()
   const [cutOutPercentage, setCutOutPercentage] = useCutOutPercentage()
-  const [currentStep, nextStep, previousStep, steps] = useSteps()
+  const [parties, addParty, removeParty, updateParty] = useCollection()
+  const [places, addPlace, removePlace, updatePlace] = useCollection()
+
+  const [
+    currentStep,
+    nextStep,
+    previousStep,
+    steps,
+    firstStep,
+    lastStep,
+  ] = useSteps()
 
   const onSave = () => {
-    console.log(seatsNumber, cutOutPercentage)
+    console.log(seatsNumber, cutOutPercentage, parties, places)
   }
 
   const Step = steps[currentStep]
@@ -71,13 +88,25 @@ const ConfigurationSteps = () => {
         setSeatsNumber={setSeatsNumber}
         seatsNumber={seatsNumber}
         cutOutPercentage={cutOutPercentage}
+        parties={parties}
+        addParty={addParty}
+        removeParty={removeParty}
+        updateParty={updateParty}
+        places={places}
+        addPlace={addPlace}
+        removePlace={removePlace}
+        updatePlace={updatePlace}
       />
-      {steps.length < currentStep ? (
-        <PaginationButtons>
-          <Button onClick={previousStep}>Enrere</Button>
-          <Button onClick={nextStep}>Continua</Button>
-        </PaginationButtons>
-      ) : (
+      <PaginationButtons>
+        <Button onClick={nextStep} disabled={firstStep()}>
+          Enrere
+        </Button>
+        <Button onClick={previousStep} disabled={lastStep()}>
+          Continua
+        </Button>
+      </PaginationButtons>
+
+      {lastStep() && (
         <Button primary onClick={onSave}>
           Comença!
         </Button>

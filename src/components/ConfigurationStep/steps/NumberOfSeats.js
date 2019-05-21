@@ -1,31 +1,30 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "@emotion/styled"
 import TextInput from "mineral-ui/TextInput"
+import Text from "mineral-ui/Text"
 import { FormField as MineralFormField } from "mineral-ui/Form"
-
-import PartiesGenerator from "./components/PartiesGenerator"
 
 const NumberInput = styled(TextInput)`
   input {
     text-align: right;
   }
 `
-
 const FormField = styled(MineralFormField)`
   margin-bottom: 1rem;
 `
-
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
-const StepOne = ({
+
+const NumberOfSeats = ({
   seatsNumber,
   setSeatsNumber,
   cutOutPercentage,
   setCutOutPercentage,
 }) => (
   <FormWrapper>
+    <Text as="h3">Regidors</Text>
     <FormField label="Número de regidors">
       <NumberInput
         type="number"
@@ -41,8 +40,7 @@ const StepOne = ({
         onChange={setCutOutPercentage}
       />
     </FormField>
-    <PartiesGenerator onPartyCreation={() => {}} />
   </FormWrapper>
 )
 
-export { StepOne }
+export default NumberOfSeats
