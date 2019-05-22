@@ -11,14 +11,14 @@ const AppTitle = styled(Text)`
   color: white;
 `
 
-const NavigationBar = ({ goToChart, goToConfiguration }) => (
+const NavigationBar = ({ goToPage }) => (
   <Navigation>
     <AppTitle as="h1" noMargins>
       Calculadora de regidors
     </AppTitle>
     <Navigation>
-      <NavItem onClick={goToConfiguration}>Configuració</NavItem>
-      <NavItem onClick={goToChart}>Resultats</NavItem>
+      <NavItem onClick={() => goToPage("configuration")}>Configuració</NavItem>
+      <NavItem onClick={() => goToPage("results")}>Resultats</NavItem>
     </Navigation>
   </Navigation>
 )
