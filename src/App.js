@@ -20,7 +20,7 @@ const App = () => {
   const [navigation, setNavigation] = useState("chart")
   const [config, setConfig] = useState({
     cutOut: 3,
-    seats: 21,
+    totalSeats: 21,
     parties: [],
     places: [],
   })

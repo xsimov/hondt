@@ -25,8 +25,7 @@ const PaginationButtons = styled.div`
 `
 
 const Configuration = ({ onConfigurationSave, config }) => {
-  console.log(config)
-  const [seatsNumber, setSeatsNumber] = useSeats(config.seats)
+  const [seatsNumber, setSeatsNumber] = useSeats(config.totalSeats)
   const [cutOutPercentage, setCutOutPercentage] = useCutOutPercentage(
     config.cutOut
   )
@@ -47,7 +46,7 @@ const Configuration = ({ onConfigurationSave, config }) => {
 
   const onSave = () => {
     onConfigurationSave({
-      seats: seatsNumber,
+      totalSeats: seatsNumber,
       cutOut: cutOutPercentage,
       parties: parties,
       places: places,
@@ -83,7 +82,7 @@ const Configuration = ({ onConfigurationSave, config }) => {
 
       {lastStep() && (
         <Button primary onClick={onSave}>
-          Comença!
+          Guarda!
         </Button>
       )}
     </FormWrapper>
