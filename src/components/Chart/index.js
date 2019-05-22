@@ -1,33 +1,22 @@
 import React, { useRef, useEffect } from "react"
 import Chart from "chart.js"
+import lightenColor from "./lightenColor"
 
-const MyChart = () => {
+const MyChart = ({ parties }) => {
+  const sortedBySeats = [...parties].sort((a, b) => b.seats - a.seats)
+  const sortedByOldSeats = [...parties].sort((a, b) => b.oldSeats - a.oldSeats)
+
   const node = useRef(null)
   const datasets = [
     {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgb(255, 99, 132)",
-        "rgb(54, 162, 235)",
-        "rgb(255, 206, 86)",
-        "rgb(75, 192, 192)",
-        "rgb(153, 102, 255)",
-        "rgb(255, 159, 64)",
-      ],
-      borderAlign: "inner",
+      data: sortedBySeats.map(p => p.seats),
+      backgroundColor: sortedBySeats.map(p => p.color),
+      labels: sortedBySeats.map(p => p.name),
     },
     {
-      label: "# of Votes",
-      data: [1, 13, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.5)",
-        "rgba(54, 162, 235, 0.5)",
-        "rgba(255, 206, 86, 0.5)",
-        "rgba(75, 192, 192, 0.5)",
-        "rgba(153, 102, 255,0.5)",
-        "rgba(255, 159, 64, 0.5)",
-      ],
+      data: sortedByOldSeats.map(p => p.oldSeats),
+      backgroundColor: sortedByOldSeats.map(p => lightenColor(p.color)),
+      labels: sortedByOldSeats.map(p => p.name + " [2015]"),
     },
   ]
 
@@ -36,9 +25,19 @@ const MyChart = () => {
       type: "doughnut",
       data: {
         datasets: datasets,
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
       },
       options: {
+        tooltips: {
+          callbacks: {
+            label: (item, data) => {
+              return (
+                data.datasets[item.datasetIndex].labels[item.index] +
+                ": " +
+                data.datasets[item.datasetIndex].data[item.index]
+              )
+            },
+          },
+        },
         circumference: Math.PI,
         rotation: Math.PI,
         cutoutPercentage: 40,
