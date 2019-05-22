@@ -5,7 +5,7 @@ const lightenColor = hexColor => {
   const g = parseInt(hexColor.substring(3, 5), 16)
   const b = parseInt(hexColor.substring(5, 7), 16)
 
-  return `rgba(${r}, ${g}, ${b}, .5)`
+  return `rgba(${r}, ${g}, ${b}, .3)`
 }
 
-export default lightenColor
+export { lightenColor }

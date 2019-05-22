@@ -4,7 +4,7 @@ import styled from "@emotion/styled"
 import NavigationBar from "./components/NavigationBar"
 import Configuration from "./components/Configuration"
 import Welcome from "./components/Welcome"
-import Chart from "./components/Chart"
+import Results from "./components/Results"
 
 import defaultConfig from "./defaultConfig.json"
 
@@ -13,7 +13,6 @@ const MainContent = styled.div`
   flex: 1;
   padding: 0 ${({ pageName }) => (pageName === "results" ? "10rem " : "20rem")};
   padding-top: 2rem;
-  height: 100%;
 `
 
 const App = () => {

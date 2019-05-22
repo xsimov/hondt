@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from "react"
 import Chart from "chart.js"
-import lightenColor from "./lightenColor"
+import ChartDataLabels from "chartjs-plugin-datalabels"
+import { lightenColor } from "../../../utils"
 
-const MyChart = ({ parties }) => {
+const ResultsChart = ({ parties }) => {
   const sortedBySeats = [...parties].sort((a, b) => b.seats - a.seats)
   const sortedByOldSeats = [...parties].sort((a, b) => b.oldSeats - a.oldSeats)
 
@@ -23,10 +24,20 @@ const MyChart = ({ parties }) => {
   useEffect(() => {
     new Chart(node.current.getContext("2d"), {
       type: "doughnut",
+      plugins: [ChartDataLabels],
       data: {
         datasets: datasets,
       },
       options: {
+        plugins: {
+          datalabels: {
+            font: {
+              family: "Open Sans",
+              weight: "bold",
+              size: 24,
+            },
+          },
+        },
         tooltips: {
           callbacks: {
             label: (item, data) => {
@@ -53,7 +64,7 @@ const MyChart = ({ parties }) => {
     })
   })
 
-  return <canvas ref={node} height="100%" width="100%" />
+  return <canvas ref={node} height="50%" width="100%" />
 }
 
-export default MyChart
+export { ResultsChart }
