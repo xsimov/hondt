@@ -24,11 +24,18 @@ const PaginationButtons = styled.div`
   }
 `
 
-const Configuration = () => {
-  const [seatsNumber, setSeatsNumber] = useSeats()
-  const [cutOutPercentage, setCutOutPercentage] = useCutOutPercentage()
-  const [parties, addParty, removeParty, updateParty] = useCollection()
-  const [places, addPlace, removePlace, updatePlace] = useCollection()
+const Configuration = ({ onConfigurationSave, config }) => {
+  console.log(config)
+  const [seatsNumber, setSeatsNumber] = useSeats(config.seats)
+  const [cutOutPercentage, setCutOutPercentage] = useCutOutPercentage(
+    config.cutOut
+  )
+  const [parties, addParty, removeParty, updateParty] = useCollection(
+    config.parties
+  )
+  const [places, addPlace, removePlace, updatePlace] = useCollection(
+    config.places
+  )
   const [
     currentStep,
     nextStep,
@@ -39,9 +46,12 @@ const Configuration = () => {
   ] = useSteps()
 
   const onSave = () => {
-    console.log(seatsNumber, cutOutPercentage)
-    console.table(parties)
-    console.table(places)
+    onConfigurationSave({
+      seats: seatsNumber,
+      cutOut: cutOutPercentage,
+      parties: parties,
+      places: places,
+    })
   }
 
   const Step = steps[currentStep]

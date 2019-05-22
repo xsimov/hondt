@@ -5,8 +5,8 @@ import VotingPlacesGenerator from "./VotingPlacesGenerator"
 
 let nextId = 1
 
-const useCollection = () => {
-  const [collection, setCollection] = useState([])
+const useCollection = initialValue => {
+  const [collection, setCollection] = useState(initialValue)
 
   const updateElementAttribute = (id, property, value) => {
     const newCollection = collection.map(element => {
@@ -37,8 +37,8 @@ const useCollection = () => {
   return [collection, addElement, removeElement, updateElementAttribute]
 }
 
-const useSeats = () => {
-  const [seatsNumber, setSeatsNumber] = useState(21)
+const useSeats = initialValue => {
+  const [seatsNumber, setSeatsNumber] = useState(initialValue)
 
   const onChangingSeats = event => {
     setSeatsNumber(parseInt(event.target.value))
@@ -47,8 +47,8 @@ const useSeats = () => {
   return [seatsNumber, onChangingSeats]
 }
 
-const useCutOutPercentage = () => {
-  const [cutOutPercentage, setCutOutPercentage] = useState(3)
+const useCutOutPercentage = initialValue => {
+  const [cutOutPercentage, setCutOutPercentage] = useState(initialValue)
 
   const onChangingCutOutPercentage = event => {
     setCutOutPercentage(parseInt(event.target.value))

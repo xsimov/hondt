@@ -14,23 +14,34 @@ const MainContent = styled.div`
   height: 100%;
 `
 
-const router = navigation => {
-  switch (navigation) {
-    default:
-    case "configuration":
-      return <Configuration />
-    case "welcome":
-      return <Welcome />
-    case "chart":
-      return <Chart />
-  }
-}
+const router = navigation => {}
 
 const App = () => {
   const [navigation, setNavigation] = useState("chart")
+  const [config, setConfig] = useState({
+    cutOut: 3,
+    seats: 21,
+    parties: [],
+    places: [],
+  })
 
   const goToConfiguration = () => setNavigation("configuration")
   const goToChart = () => setNavigation("chart")
+
+  let content = undefined
+  switch (navigation) {
+    case "configuration":
+      content = (
+        <Configuration onConfigurationSave={setConfig} config={config} />
+      )
+      break
+    case "welcome":
+      content = <Welcome />
+      break
+    case "chart":
+      content = <Chart />
+      break
+  }
 
   return (
     <React.Fragment>
@@ -38,7 +49,7 @@ const App = () => {
         goToConfiguration={goToConfiguration}
         goToChart={goToChart}
       />
-      <MainContent>{router(navigation)}</MainContent>
+      <MainContent>{content}</MainContent>
     </React.Fragment>
   )
 }
