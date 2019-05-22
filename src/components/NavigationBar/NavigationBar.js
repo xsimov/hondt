@@ -19,6 +19,7 @@ const NavigationBar = ({ goToPage }) => (
     <Navigation>
       <NavItem onClick={() => goToPage("configuration")}>Configuració</NavItem>
       <NavItem onClick={() => goToPage("results")}>Resultats</NavItem>
+      <NavItem onClick={() => goToPage("form")}>Vots</NavItem>
     </Navigation>
   </Navigation>
 )

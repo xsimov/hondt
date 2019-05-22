@@ -5,6 +5,7 @@ import NavigationBar from "./components/NavigationBar"
 import Configuration from "./components/Configuration"
 import Welcome from "./components/Welcome"
 import Results from "./components/Results"
+import Form from "./components/Form"
 
 import defaultConfig from "./defaultConfig.json"
 
@@ -16,7 +17,7 @@ const MainContent = styled.div`
 `
 
 const App = () => {
-  const [navigation, setNavigation] = useState("results")
+  const [navigation, setNavigation] = useState("form")
   const [config, setConfig] = useState(defaultConfig)
 
   const pages = {
@@ -25,6 +26,7 @@ const App = () => {
     configuration: (
       <Configuration onConfigurationSave={setConfig} config={config} />
     ),
+    form: <Form places={config.places} parties={config.parties} />,
   }
 
   const goToPage = pageName => {
