@@ -13,9 +13,6 @@ const HorizontalLabel = styled.label`
 const HorizontalText = styled(Text)`
   margin: 0 1rem 0 0;
 `
-const ColorInput = styled(TextInput)`
-  width: 5rem;
-`
 
 const VotingPlace = ({ place, removePlace, updatePlace, className }) => (
   <div className={className}>

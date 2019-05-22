@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styled from "@emotion/styled"
 
 import NavigationBar from "./components/NavigationBar"
-import ConfigurationStep from "./components/ConfigurationStep"
+import Configuration from "./components/Configuration"
 import Welcome from "./components/Welcome"
 
 const MainContent = styled.div`
@@ -17,7 +17,7 @@ const router = navigation => {
   switch (navigation) {
     default:
     case "configuration":
-      return <ConfigurationStep />
+      return <Configuration />
     case "welcome":
       return <Welcome />
   }
