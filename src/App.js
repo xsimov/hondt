@@ -4,6 +4,7 @@ import styled from "@emotion/styled"
 import NavigationBar from "./components/NavigationBar"
 import Configuration from "./components/Configuration"
 import Welcome from "./components/Welcome"
+import Chart from "./components/Chart"
 
 const MainContent = styled.div`
   display: flex;
@@ -20,11 +21,13 @@ const router = navigation => {
       return <Configuration />
     case "welcome":
       return <Welcome />
+    case "chart":
+      return <Chart />
   }
 }
 
 const App = () => {
-  const [navigation, setNavigation] = useState("configuration")
+  const [navigation, setNavigation] = useState("chart")
 
   const goToConfiguration = () => setNavigation("configuration")
 
