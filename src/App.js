@@ -12,7 +12,7 @@ import defaultConfig from "./defaultConfig.json"
 const MainContent = styled.div`
   display: flex;
   flex: 1;
-  padding: 0 ${({ pageName }) => (pageName === "results" ? "10rem " : "20rem")};
+  padding: 0 ${({ wide }) => (wide ? "10rem" : "20rem")};
   padding-top: 2rem;
 `
 
@@ -29,6 +29,8 @@ const App = () => {
     form: <Form places={config.places} parties={config.parties} />,
   }
 
+  const widePages = ["results", "form"]
+
   const goToPage = pageName => {
     if (Object.keys(pages).includes(pageName)) return setNavigation(pageName)
 
@@ -38,7 +40,9 @@ const App = () => {
   return (
     <React.Fragment>
       <NavigationBar goToPage={goToPage} />
-      <MainContent pageName={navigation}>{pages[navigation]}</MainContent>
+      <MainContent wide={widePages.includes(navigation)}>
+        {pages[navigation]}
+      </MainContent>
     </React.Fragment>
   )
 }
