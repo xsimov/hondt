@@ -6,6 +6,8 @@ import Configuration from "./components/Configuration"
 import Welcome from "./components/Welcome"
 import Chart from "./components/Chart"
 
+import defaultConfig from "./defaultConfig.json"
+
 const MainContent = styled.div`
   display: flex;
   flex: 1;
@@ -14,16 +16,9 @@ const MainContent = styled.div`
   height: 100%;
 `
 
-const router = navigation => {}
-
 const App = () => {
   const [navigation, setNavigation] = useState("chart")
-  const [config, setConfig] = useState({
-    cutOut: 3,
-    totalSeats: 21,
-    parties: [],
-    places: [],
-  })
+  const [config, setConfig] = useState(defaultConfig)
 
   const goToConfiguration = () => setNavigation("configuration")
   const goToChart = () => setNavigation("chart")
@@ -35,12 +30,12 @@ const App = () => {
         <Configuration onConfigurationSave={setConfig} config={config} />
       )
       break
+    case "chart":
+      content = <Chart parties={config.parties} />
+      break
+    default:
     case "welcome":
       content = <Welcome />
-      break
-    case "chart":
-      content = <Chart />
-      break
   }
 
   return (

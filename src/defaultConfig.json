@@ -1,0 +1,28 @@
+{
+  "cutOut": 3,
+  "totalSeats": 21,
+  "parties": [
+    {
+      "id": 1,
+      "name": "Babord",
+      "color": "#ff00d2",
+      "seats": 15,
+      "oldSeats": 7
+    },
+    {
+      "id": 2,
+      "name": "ERC",
+      "color": "#ffc300",
+      "seats": 6,
+      "oldSeats": 14
+    },
+    {
+      "id": 3,
+      "name": "JxV",
+      "color": "#a5c300",
+      "seats": 14,
+      "oldSeats": 14
+    }
+  ],
+  "places": []
+}
