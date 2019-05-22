@@ -11,7 +11,7 @@ import defaultConfig from "./defaultConfig.json"
 const MainContent = styled.div`
   display: flex;
   flex: 1;
-  padding: 0 20rem;
+  padding: 0 ${({ pageName }) => (pageName === "chart" ? "10rem " : "20rem")};
   padding-top: 2rem;
   height: 100%;
 `
@@ -23,19 +23,12 @@ const App = () => {
   const goToConfiguration = () => setNavigation("configuration")
   const goToChart = () => setNavigation("chart")
 
-  let content = undefined
-  switch (navigation) {
-    case "configuration":
-      content = (
-        <Configuration onConfigurationSave={setConfig} config={config} />
-      )
-      break
-    case "chart":
-      content = <Chart parties={config.parties} />
-      break
-    default:
-    case "welcome":
-      content = <Welcome />
+  const pages = {
+    chart: <Chart parties={config.parties} />,
+    welcome: <Welcome />,
+    configuration: (
+      <Configuration onConfigurationSave={setConfig} config={config} />
+    ),
   }
 
   return (
@@ -44,7 +37,7 @@ const App = () => {
         goToConfiguration={goToConfiguration}
         goToChart={goToChart}
       />
-      <MainContent>{content}</MainContent>
+      <MainContent pageName={navigation}>{pages[navigation]}</MainContent>
     </React.Fragment>
   )
 }
