@@ -26,7 +26,7 @@ const App = () => {
     configuration: (
       <Configuration onConfigurationSave={setConfig} config={config} />
     ),
-    form: <Form places={config.places} parties={config.parties} />,
+    form: <Form config={config} setConfig={setConfig} />,
   }
 
   const widePages = ["results", "form"]
