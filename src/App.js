@@ -30,10 +30,14 @@ const App = () => {
   const [navigation, setNavigation] = useState("chart")
 
   const goToConfiguration = () => setNavigation("configuration")
+  const goToChart = () => setNavigation("chart")
 
   return (
     <React.Fragment>
-      <NavigationBar goToConfiguration={goToConfiguration} />
+      <NavigationBar
+        goToConfiguration={goToConfiguration}
+        goToChart={goToChart}
+      />
       <MainContent>{router(navigation)}</MainContent>
     </React.Fragment>
   )
