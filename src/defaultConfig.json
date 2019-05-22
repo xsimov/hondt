@@ -24,5 +24,14 @@
       "oldSeats": 14
     }
   ],
-  "places": []
+  "places": [
+    {
+      "id": 1,
+      "name": "Bressoleta"
+    },
+    {
+      "id": 2,
+      "name": "Escola del Mar"
+    }
+  ]
 }
