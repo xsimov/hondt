@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import styled from "@emotion/styled"
+import openSocket from "socket.io-client"
 
 import NavigationBar from "./components/NavigationBar"
 import Configuration from "./components/Configuration"
@@ -16,17 +17,41 @@ const MainContent = styled.div`
   padding-top: 2rem;
 `
 
+const socket = openSocket("http://localhost:8088")
+// const socket = openSocket("http://146.185.153.166:8020")
+
+let sessionId = window.location.pathname
+
+if (sessionId.length) {
+  socket.emit("load", { sessionId: sessionId })
+  socket.on("created", data => (sessionId = data.sessionId))
+} else {
+  socket.emit("create")
+}
+
 const App = () => {
   const [navigation, setNavigation] = useState("welcome")
   const [config, setConfig] = useState(defaultConfig)
+
+  socket.on("update", data => {
+    setConfig(data.config)
+  })
+
+  const onSaveConfiguration = newConfig => {
+    setConfig(newConfig)
+    socket.emit("save", { data: newConfig, sessionId: sessionId })
+  }
 
   const pages = {
     results: <Results parties={config.parties} />,
     welcome: <Welcome />,
     configuration: (
-      <Configuration onConfigurationSave={setConfig} config={config} />
+      <Configuration
+        onConfigurationSave={onSaveConfiguration}
+        config={config}
+      />
     ),
-    form: <Form config={config} setConfig={setConfig} />,
+    form: <Form config={config} setConfig={onSaveConfiguration} />,
   }
 
   const widePages = ["results", "form"]
