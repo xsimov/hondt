@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import Button from "mineral-ui/Button"
+import { dhondtCalculation } from "../../utils"
 
 import {
   useCutOutPercentage,
@@ -49,7 +50,7 @@ const Configuration = ({ onConfigurationSave, config }) => {
     onConfigurationSave({
       totalSeats: seatsNumber,
       cutOut: cutOutPercentage,
-      parties: parties,
+      parties: dhondtCalculation(parties, seatsNumber),
       places: places,
     })
   }
