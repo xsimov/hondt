@@ -18,7 +18,7 @@ const MainContent = styled.div`
 `
 
 // const socket = openSocket("http://localhost:8088")
-const socket = openSocket("https://jp.xsimov.com:8020")
+const socket = openSocket("wss://jp.xsimov.com:8020")
 
 let sessionId = window.location.search
 
