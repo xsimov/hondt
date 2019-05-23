@@ -111,21 +111,9 @@ const Welcome = () => (
         . <br />
       </li>
       <li>
-        <span role="img" aria-label="exclamation">
-          ‼️
-        </span>
-        ️OPCIONAL
-        <br />
-        Prémer el{" "}
-        <SpecialTag>
-          <span role="img" aria-label="tick">
-            ☑️
-          </span>
-          Mostrar&nbsp;gràfic&nbsp;de&nbsp;les&nbsp;eleccions&nbsp;anteriors
-        </SpecialTag>{" "}
-        per a fer aparèixer un altre camp al costat de cada partit per tal
-        d'introduïr el nombre de regidors de cada partit durant la legislatura
-        anterior.
+        Introduïr (si es vol) el nombre de regidors actuals per a cada partit
+        per a fer aparèixer un altre gràfic per tal de comparar els resultats de
+        les eleccions anteriors amb aquestes.
       </li>
       <li>
         Prémer{" "}

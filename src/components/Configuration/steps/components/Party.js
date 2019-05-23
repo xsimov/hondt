@@ -14,7 +14,7 @@ const HorizontalLabel = styled.label`
 const HorizontalText = styled(Text)`
   margin: 0 1rem 0 0;
 `
-const ColorInput = styled(TextInput)`
+const ShortInput = styled(TextInput)`
   width: 5rem;
 `
 
@@ -29,10 +29,18 @@ const Party = ({ party, removeParty, updateParty, className }) => (
     </HorizontalLabel>
     <HorizontalLabel>
       <HorizontalText>Color:</HorizontalText>
-      <ColorInput
+      <ShortInput
         type="color"
         value={party.color || "#FFFFFF"}
         onChange={e => updateParty(party.id, "color", e.target.value)}
+      />
+    </HorizontalLabel>
+    <HorizontalLabel>
+      <HorizontalText>Regidors actuals:</HorizontalText>
+      <ShortInput
+        value={party.oldSeats}
+        type="number"
+        onChange={e => updateParty(party.id, "oldSeats", e.target.value)}
       />
     </HorizontalLabel>
     <Button variant="danger" onClick={removeParty}>
