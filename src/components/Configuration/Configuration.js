@@ -12,6 +12,7 @@ import {
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `
 
 const PaginationButtons = styled.div`
@@ -57,6 +58,14 @@ const Configuration = ({ onConfigurationSave, config }) => {
 
   return (
     <FormWrapper>
+      <PaginationButtons>
+        <Button onClick={nextStep} disabled={firstStep()}>
+          Enrere
+        </Button>
+        <Button onClick={previousStep} disabled={lastStep()}>
+          Continua
+        </Button>
+      </PaginationButtons>
       <Step
         setCutOutPercentage={setCutOutPercentage}
         setSeatsNumber={setSeatsNumber}
@@ -71,20 +80,10 @@ const Configuration = ({ onConfigurationSave, config }) => {
         removePlace={removePlace}
         updatePlace={updatePlace}
       />
-      <PaginationButtons>
-        <Button onClick={nextStep} disabled={firstStep()}>
-          Enrere
-        </Button>
-        <Button onClick={previousStep} disabled={lastStep()}>
-          Continua
-        </Button>
-      </PaginationButtons>
 
-      {lastStep() && (
-        <Button primary onClick={onSave}>
-          Guarda!
-        </Button>
-      )}
+      <Button primary onClick={onSave}>
+        Guarda!
+      </Button>
     </FormWrapper>
   )
 }
