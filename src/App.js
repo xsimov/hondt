@@ -17,8 +17,8 @@ const MainContent = styled.div`
   padding-top: 2rem;
 `
 
-const socket = openSocket("http://localhost:8088")
-// const socket = openSocket("http://146.185.153.166:8020")
+// const socket = openSocket("http://localhost:8088")
+const socket = openSocket("http://jp.xsimov.com:8020")
 
 let sessionId = window.location.search
 
