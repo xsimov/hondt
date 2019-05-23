@@ -1,10 +1,24 @@
-const dhondtCalculation = (parties, totalSeats) => {
+const dhondtCalculation = (parties, totalSeats, cutOutPercentage = 0) => {
   const newParties = parties.map(p => ({ ...p, seats: 0 }))
 
-  const totalVotes = newParties.map(p => ({
+  const totalVotesAllParties = newParties.map(p => ({
     total: Object.keys(p.votes).reduce((accum, key) => accum + p.votes[key], 0),
     id: p.id,
   }))
+
+  const absolutNumberOfVotes = totalVotesAllParties.reduce(
+    (accum, p) => accum + p.total,
+    0
+  )
+
+  const totalVotes = totalVotesAllParties.filter(p => {
+    console.log(
+      p.total,
+      cutOutPercentage,
+      absolutNumberOfVotes * (cutOutPercentage / 100)
+    )
+    return p.total > absolutNumberOfVotes * (cutOutPercentage / 100)
+  })
 
   let hondtList = []
   for (let seat = 1; seat <= totalSeats; seat++) {

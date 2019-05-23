@@ -50,7 +50,7 @@ const Configuration = ({ onConfigurationSave, config }) => {
     onConfigurationSave({
       totalSeats: seatsNumber,
       cutOut: cutOutPercentage,
-      parties: dhondtCalculation(parties, seatsNumber),
+      parties: dhondtCalculation(parties, seatsNumber, cutOutPercentage),
       places: places,
     })
   }
