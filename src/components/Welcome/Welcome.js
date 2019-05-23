@@ -2,12 +2,10 @@ import React from "react"
 import Text from "mineral-ui/Text"
 import Link from "mineral-ui/Link"
 import styled from "@emotion/styled"
+import ghLogo from "../../images/GitHub-Mark.png"
 
 const WelcomeText = styled.div`
   flex-direction: column;
-  * {
-    font-size: 1rem;
-  }
 `
 const OrderedList = styled.ol`
   font-size: 1rem;
@@ -23,6 +21,13 @@ const SpecialTag = styled.span`
   padding: 2px 8px;
   border-radius: 99999em;
 `
+const GithubLogo = styled.img`
+  height: 1.2rem;
+  margin-bottom: -5px;
+`
+const SmallLink = styled(Link)`
+  font-size: ${({ theme }) => theme.fontSize_prose};
+`
 
 const Welcome = () => (
   <WelcomeText>
@@ -33,9 +38,14 @@ const Welcome = () => (
       Calculadora D'Hondt
     </Text>
     <Text appearance="prose">
-      Hola! <br />
+      Hola!
+      <br />
       Això és una Calculadora de la Llei D'Hondt, per a anar apuntant els
-      resultats dels diversos col·legis electorals 🗳 i veure com acaba la cosa
+      resultats dels diversos col·legis electorals{" "}
+      <span role="img" aria-label="voting-box">
+        🗳
+      </span>
+      i veure com acaba la cosa
       <span role="img" aria-label="nerdface">
         🤓
       </span>
@@ -99,12 +109,19 @@ const Welcome = () => (
           🎨
         </span>
         . <br />
+      </li>
+      <li>
+        <span role="img" aria-label="exclamation">
+          ‼️
+        </span>
+        ️OPCIONAL
+        <br />
         Prémer el{" "}
         <SpecialTag>
           <span role="img" aria-label="tick">
             ☑️
           </span>
-          Mostrar gràfic de les eleccions anteriors
+          Mostrar&nbsp;gràfic&nbsp;de&nbsp;les&nbsp;eleccions&nbsp;anteriors
         </SpecialTag>{" "}
         per a fer aparèixer un altre camp al costat de cada partit per tal
         d'introduïr el nombre de regidors de cada partit durant la legislatura
@@ -144,6 +161,14 @@ const Welcome = () => (
         per a comprovar si el vostre partit ha guanyat 🥇!
       </li>
     </OrderedList>
+
+    <Text>
+      Tot això és codi lliure i obert que podeu trobar a{" "}
+      <SmallLink href="https://github.com/xsimov/hondt">
+        <GithubLogo src={ghLogo} />
+        github.com/xsimov/hondt
+      </SmallLink>
+    </Text>
   </WelcomeText>
 )
 
