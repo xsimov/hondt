@@ -33,7 +33,13 @@ const useCollection = initialValue => {
     setCollection(collection.filter(element => element.id !== elementId))
   }
 
-  return [collection, addElement, removeElement, updateElementAttribute]
+  return [
+    collection,
+    addElement,
+    removeElement,
+    updateElementAttribute,
+    setCollection,
+  ]
 }
 
 const useSeats = initialValue => {

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "@emotion/styled"
 import Button from "mineral-ui/Button"
 import { dhondtCalculation } from "../../utils"
@@ -31,10 +31,14 @@ const Configuration = ({ onConfigurationSave, config }) => {
   const [cutOutPercentage, setCutOutPercentage] = useCutOutPercentage(
     config.cutOut
   )
-  const [parties, addParty, removeParty, updateParty] = useCollection(
-    config.parties
-  )
-  const [places, addPlace, removePlace, updatePlace] = useCollection(
+  const [
+    parties,
+    addParty,
+    removeParty,
+    updateParty,
+    setParties,
+  ] = useCollection(config.parties)
+  const [places, addPlace, removePlace, updatePlace, setPlaces] = useCollection(
     config.places
   )
   const [
@@ -45,6 +49,13 @@ const Configuration = ({ onConfigurationSave, config }) => {
     firstStep,
     lastStep,
   ] = useSteps()
+
+  useEffect(() => {
+    setSeatsNumber({ target: { value: config.seats } })
+    setCutOutPercentage({ target: { value: config.cutOut } })
+    setParties(config.parties)
+    setPlaces(config.places)
+  }, [config])
 
   const onSave = () => {
     onConfigurationSave({
