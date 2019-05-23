@@ -25,6 +25,7 @@ const useCollection = initialValue => {
         id: nextId,
         name: "",
         color: "",
+        votes: {},
         seats: Math.trunc(Math.random() * 10),
       },
     ])

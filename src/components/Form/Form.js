@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import TextInput from "mineral-ui/TextInput"
+import { dhondtCalculation } from "../../utils"
 
 const VoteCountingTable = styled.table`
   width: 100%;
@@ -11,19 +12,23 @@ const VoteCountingTable = styled.table`
   td {
     padding: 5px;
     border: 1px solid black;
+    font-family: "Open Sans";
   }
 `
 const Form = ({ config, setConfig }) => {
   const { parties, places } = config
-  const updateParty = (id, attribute, value) => {
+  const updateVotes = (partyId, placeId, value) => {
     const newParties = config.parties.map(p => {
-      if (p.id !== id) return p
+      if (p.id !== partyId) return p
 
-      return { ...p, [attribute]: value }
+      return { ...p, votes: { ...p.votes, [placeId]: value } }
     })
-
-    setConfig({ ...config, parties: newParties })
+    setConfig({
+      ...config,
+      parties: dhondtCalculation(newParties, config.totalSeats),
+    })
   }
+
   return (
     <VoteCountingTable>
       <thead>
@@ -41,14 +46,35 @@ const Form = ({ config, setConfig }) => {
             {parties.map(party => (
               <td>
                 <TextInput
-                  value={party.seats}
-                  onChange={e => updateParty(party.id, "seats", e.target.value)}
+                  value={party.votes[place.id]}
+                  onChange={e =>
+                    updateVotes(party.id, place.id, parseInt(e.target.value))
+                  }
                   type="number"
                 />
               </td>
             ))}
           </tr>
         ))}
+        <tr>
+          <th>Total partit</th>
+          {parties.map(party => (
+            <td>
+              {Object.keys(party.votes).reduce(
+                (accum, key) => accum + party.votes[key],
+                0
+              )}
+            </td>
+          ))}
+        </tr>
+        <tr>
+          <th>Regidors</th>
+          {parties.map(party => (
+            <td>
+              <strong>{party.seats}</strong>
+            </td>
+          ))}
+        </tr>
       </tbody>
     </VoteCountingTable>
   )
