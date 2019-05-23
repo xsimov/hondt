@@ -51,7 +51,7 @@ const Configuration = ({ onConfigurationSave, config }) => {
   ] = useSteps()
 
   useEffect(() => {
-    setSeatsNumber({ target: { value: config.seats } })
+    setSeatsNumber({ target: { value: config.totalSeats } })
     setCutOutPercentage({ target: { value: config.cutOut } })
     setParties(config.parties)
     setPlaces(config.places)
