@@ -10,7 +10,7 @@ const ResultsChart = ({ parties }) => {
   const node = useRef(null)
   const datasets = [
     {
-      data: sortedBySeats.map(p => p.seats),
+      data: sortedBySeats.filter(p => p.seats).map(p => p.seats),
       backgroundColor: sortedBySeats.map(p => p.color),
       labels: sortedBySeats.map(p => p.name),
     },
