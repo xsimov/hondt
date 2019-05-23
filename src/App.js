@@ -20,11 +20,10 @@ const MainContent = styled.div`
 const socket = openSocket("http://localhost:8088")
 // const socket = openSocket("http://146.185.153.166:8020")
 
-let sessionId = window.location.pathname
+let sessionId = window.location.search
 
 if (sessionId.length) {
   socket.emit("load", { sessionId: sessionId })
-  socket.on("created", data => (sessionId = data.sessionId))
 } else {
   socket.emit("create")
 }
@@ -32,6 +31,12 @@ if (sessionId.length) {
 const App = () => {
   const [navigation, setNavigation] = useState("welcome")
   const [config, setConfig] = useState(defaultConfig)
+
+  socket.on("created", ({ sessionId: serverSessionId }) => {
+    console.log(serverSessionId)
+    window.location.search = serverSessionId
+    sessionId = serverSessionId
+  })
 
   socket.on("update", data => {
     setConfig(data.config)
