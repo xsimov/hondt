@@ -20,7 +20,7 @@ const MainContent = styled.div`
 // const socket = openSocket("http://localhost:8088")
 const socket = openSocket("wss://jp.xsimov.com:8020")
 
-let sessionId = window.location.search
+let sessionId = window.location.pathname
 
 if (sessionId.length) {
   socket.emit("load", { sessionId: sessionId })
@@ -34,7 +34,7 @@ const App = () => {
 
   socket.on("created", ({ sessionId: serverSessionId }) => {
     console.log(serverSessionId)
-    window.location.search = serverSessionId
+    window.location.pathname = serverSessionId
     sessionId = serverSessionId
   })
 
