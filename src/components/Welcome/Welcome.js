@@ -164,7 +164,7 @@ const Welcome = () => (
 
     <Text>
       Tot això és codi lliure i obert que podeu trobar a{" "}
-      <SmallLink href="https://github.com/xsimov/hondt">
+      <SmallLink href="https://github.com/xsimov/hondt" target="_blank">
         <GithubLogo src={ghLogo} />
         github.com/xsimov/hondt
       </SmallLink>

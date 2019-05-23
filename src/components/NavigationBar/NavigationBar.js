@@ -14,7 +14,11 @@ const AppTitle = styled(Text)`
 const NavigationBar = ({ goToPage, currentPage }) => (
   <Navigation>
     <AppTitle as="h1" noMargins>
-      <span role="img" aria-label="puzzle-piece">
+      <span
+        role="img"
+        aria-label="puzzle-piece"
+        style={{ display: "inline-block" }}
+      >
         🧩
       </span>{" "}
       Calculadora de regidors
@@ -25,26 +29,54 @@ const NavigationBar = ({ goToPage, currentPage }) => (
         selected={currentPage === "welcome"}
         maxWidth={500}
       >
-        👩🏿‍💻️Instruccions
+        <span
+          role="img"
+          aria-label="woman-in-mac"
+          style={{ display: "inline-block" }}
+        >
+          👩🏿‍💻️
+        </span>
+        Instruccions
       </NavItem>
       <NavItem
         onClick={() => goToPage("configuration")}
         selected={currentPage === "configuration"}
         maxWidth={500}
       >
-        ⚙️Configuració
+        <span
+          role="img"
+          aria-label="woman-in-mac"
+          style={{ display: "inline-block" }}
+        >
+          ⚙️
+        </span>
+        Configuració
       </NavItem>
       <NavItem
         onClick={() => goToPage("form")}
         selected={currentPage === "form"}
       >
-        🗳Vots
+        <span
+          role="img"
+          aria-label="box-with-ballot"
+          style={{ display: "inline-block" }}
+        >
+          🗳
+        </span>
+        Vots
       </NavItem>
       <NavItem
         onClick={() => goToPage("results")}
         selected={currentPage === "results"}
       >
-        📊Resultats
+        <span
+          role="img"
+          aria-label="bar-chart"
+          style={{ display: "inline-block" }}
+        >
+          📊
+        </span>
+        Resultats
       </NavItem>
     </Navigation>
   </Navigation>
