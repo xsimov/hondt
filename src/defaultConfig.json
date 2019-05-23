@@ -1,40 +1,6 @@
 {
-  "cutOut": 3,
+  "cutOut": 5,
   "totalSeats": 21,
-  "parties": [
-    {
-      "id": 1,
-      "name": "Babord",
-      "color": "#ff00d2",
-      "seats": 0,
-      "votes": {},
-      "oldSeats": 7
-    },
-    {
-      "id": 2,
-      "name": "ERC",
-      "color": "#ffc300",
-      "seats": 0,
-      "votes": {},
-      "oldSeats": 14
-    },
-    {
-      "id": 3,
-      "name": "JxV",
-      "color": "#a5c300",
-      "seats": 0,
-      "votes": {},
-      "oldSeats": 4
-    }
-  ],
-  "places": [
-    {
-      "id": 1,
-      "name": "Bressoleta"
-    },
-    {
-      "id": 2,
-      "name": "Escola del Mar"
-    }
-  ]
+  "parties": [],
+  "places": []
 }

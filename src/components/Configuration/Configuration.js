@@ -61,10 +61,16 @@ const Configuration = ({ onConfigurationSave, config }) => {
     <FormWrapper>
       <PaginationButtons>
         <Button onClick={nextStep} disabled={firstStep()}>
+          <span role="img" aria-label="arrow-left">
+            ⬅️
+          </span>{" "}
           Enrere
         </Button>
         <Button onClick={previousStep} disabled={lastStep()}>
-          Continua
+          Continua{" "}
+          <span role="img" aria-label="arrow-right">
+            ➡️
+          </span>
         </Button>
       </PaginationButtons>
       <Step
@@ -83,7 +89,10 @@ const Configuration = ({ onConfigurationSave, config }) => {
       />
 
       <Button primary onClick={onSave}>
-        Guarda!
+        <span role="img" aria-label="disquette">
+          💾
+        </span>
+        Guardar!
       </Button>
     </FormWrapper>
   )

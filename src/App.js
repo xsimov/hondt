@@ -17,7 +17,7 @@ const MainContent = styled.div`
 `
 
 const App = () => {
-  const [navigation, setNavigation] = useState("form")
+  const [navigation, setNavigation] = useState("welcome")
   const [config, setConfig] = useState(defaultConfig)
 
   const pages = {
@@ -39,7 +39,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <NavigationBar goToPage={goToPage} />
+      <NavigationBar goToPage={goToPage} currentPage={navigation} />
       <MainContent wide={widePages.includes(navigation)}>
         {pages[navigation]}
       </MainContent>

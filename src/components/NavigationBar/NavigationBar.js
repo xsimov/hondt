@@ -11,15 +11,41 @@ const AppTitle = styled(Text)`
   color: white;
 `
 
-const NavigationBar = ({ goToPage }) => (
+const NavigationBar = ({ goToPage, currentPage }) => (
   <Navigation>
     <AppTitle as="h1" noMargins>
+      <span role="img" aria-label="puzzle-piece">
+        🧩
+      </span>{" "}
       Calculadora de regidors
     </AppTitle>
-    <Navigation>
-      <NavItem onClick={() => goToPage("configuration")}>Configuració</NavItem>
-      <NavItem onClick={() => goToPage("results")}>Resultats</NavItem>
-      <NavItem onClick={() => goToPage("form")}>Vots</NavItem>
+    <Navigation as="div">
+      <NavItem
+        onClick={() => goToPage("welcome")}
+        selected={currentPage === "welcome"}
+        maxWidth={500}
+      >
+        👩🏿‍💻️Instruccions
+      </NavItem>
+      <NavItem
+        onClick={() => goToPage("configuration")}
+        selected={currentPage === "configuration"}
+        maxWidth={500}
+      >
+        ⚙️Configuració
+      </NavItem>
+      <NavItem
+        onClick={() => goToPage("form")}
+        selected={currentPage === "form"}
+      >
+        🗳Vots
+      </NavItem>
+      <NavItem
+        onClick={() => goToPage("results")}
+        selected={currentPage === "results"}
+      >
+        📊Resultats
+      </NavItem>
     </Navigation>
   </Navigation>
 )
