@@ -22,7 +22,7 @@ const socket = openSocket("wss://jp.xsimov.com:8020")
 
 let sessionId = window.location.pathname
 
-if (sessionId.length) {
+if (sessionId.replace("/", "").length) {
   socket.emit("load", { sessionId: sessionId })
 } else {
   socket.emit("create")
