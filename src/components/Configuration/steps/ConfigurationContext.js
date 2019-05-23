@@ -3,8 +3,6 @@ import NumberOfSeats from "./NumberOfSeats"
 import PartiesGenerator from "./PartiesGenerator"
 import VotingPlacesGenerator from "./VotingPlacesGenerator"
 
-let nextId = 1
-
 const useCollection = initialValue => {
   const [collection, setCollection] = useState(initialValue)
 
@@ -22,14 +20,13 @@ const useCollection = initialValue => {
     setCollection([
       ...collection,
       {
-        id: nextId,
+        id: collection.length + 1,
         name: "",
         color: "",
         votes: {},
         seats: Math.trunc(Math.random() * 10),
       },
     ])
-    nextId += 1
   }
 
   const removeElement = elementId => {
