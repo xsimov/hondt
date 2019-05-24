@@ -14,12 +14,8 @@ const AppTitle = styled(Text)`
 const NavigationBar = ({ goToPage, currentPage }) => (
   <Navigation>
     <AppTitle as="h1" noMargins>
-      <span
-        role="img"
-        aria-label="puzzle-piece"
-        style={{ display: "inline-block" }}
-      >
-        🧩
+      <span role="img" aria-label="abacus" style={{ display: "inline-block" }}>
+        🧮
       </span>{" "}
       Calculadora de regidors
     </AppTitle>

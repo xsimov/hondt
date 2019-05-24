@@ -13,7 +13,7 @@ import defaultConfig from "./defaultConfig.json"
 const MainContent = styled.div`
   display: flex;
   flex: 1;
-  padding: 0 ${({ wide }) => (wide ? "10rem" : "20rem")};
+  padding: 0 ${({ wide }) => (wide ? "10rem" : "15rem")};
   padding-top: 2rem;
 `
 
@@ -33,7 +33,6 @@ const App = () => {
   const [config, setConfig] = useState(defaultConfig)
 
   socket.on("created", ({ sessionId: serverSessionId }) => {
-    console.log(serverSessionId)
     window.location.pathname = serverSessionId
     sessionId = serverSessionId
   })
