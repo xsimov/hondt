@@ -18,7 +18,7 @@ const MainContent = styled.div`
 `
 
 // const socket = openSocket("http://localhost:8088")
-const socket = openSocket("wss://jp.xsimov.com:8020")
+const socket = openSocket("wss://ws.xsimov.com:8020")
 
 let sessionId = window.location.pathname
 
@@ -38,6 +38,7 @@ const App = () => {
   })
 
   socket.on("update", data => {
+    if (data.sessionId !== sessionId) return
     setConfig(data.config)
   })
 
