@@ -1,9 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 import styled from "@emotion/styled"
 
 import Party from "./components/Party"
 import Button from "mineral-ui/Button"
-import Checkbox from "mineral-ui/Checkbox"
 import Text from "mineral-ui/Text"
 
 const Section = styled.section`
