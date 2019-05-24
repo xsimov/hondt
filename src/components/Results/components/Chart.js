@@ -4,13 +4,17 @@ import ChartDataLabels from "chartjs-plugin-datalabels"
 import { lightenColor } from "../../../utils"
 
 const ResultsChart = ({ parties }) => {
-  const sortedBySeats = [...parties].sort((a, b) => b.seats - a.seats)
-  const sortedByOldSeats = [...parties].sort((a, b) => b.oldSeats - a.oldSeats)
+  const sortedBySeats = [...parties]
+    .sort((a, b) => b.seats - a.seats)
+    .filter(p => p.seats)
+  const sortedByOldSeats = [...parties]
+    .sort((a, b) => b.oldSeats - a.oldSeats)
+    .filter(p => p.oldSeats)
 
   const node = useRef(null)
   const datasets = [
     {
-      data: sortedBySeats.filter(p => p.seats).map(p => p.seats),
+      data: sortedBySeats.map(p => p.seats),
       backgroundColor: sortedBySeats.map(p => p.color),
       labels: sortedBySeats.map(p => p.name),
     },
