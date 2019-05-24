@@ -19,6 +19,7 @@ const dhondtCalculation = (parties, totalSeats, cutOutPercentage = 0) => {
   for (let seat = 1; seat <= totalSeats; seat++) {
     const thisSeatVotes = totalVotes.map(votes => ({
       hondtNumber: Math.round(votes.total / seat),
+      partysTotalVotes: votes.total,
       partyId: votes.id,
     }))
 
@@ -26,7 +27,13 @@ const dhondtCalculation = (parties, totalSeats, cutOutPercentage = 0) => {
   }
 
   hondtList
-    .sort((a, b) => b.hondtNumber - a.hondtNumber)
+    .sort((a, b) => {
+      const order = b.hondtNumber - a.hondtNumber
+      if (order === 0) {
+        return b.partysTotalVotes - a.partysTotalVotes
+      }
+      return order
+    })
     .slice(0, totalSeats)
     .forEach(
       hondtElement =>
