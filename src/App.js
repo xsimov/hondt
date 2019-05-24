@@ -44,6 +44,7 @@ const App = () => {
   })
 
   const onSaveConfiguration = newConfig => {
+    if (!admin) return
     setConfig(newConfig)
     socket.emit("save", { data: newConfig, sessionId: sessionId })
   }
