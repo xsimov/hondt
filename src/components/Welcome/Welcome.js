@@ -226,7 +226,7 @@ const Welcome = () => (
       </span>
       ) i serà teva! I llavors pots compartir un enllaç amb sentit, com el
       d'exemple{" "}
-      <span role="img" aria-lable="sunglasses">
+      <span role="img" aria-label="sunglasses">
         😎
       </span>
       .

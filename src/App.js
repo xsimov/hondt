@@ -31,15 +31,17 @@ if (sessionId.replace("/", "").length) {
 const App = () => {
   const [navigation, setNavigation] = useState("welcome")
   const [config, setConfig] = useState(defaultConfig)
+  const [admin, setAdmin] = useState(false)
 
   socket.on("created", ({ sessionId: serverSessionId }) => {
     window.location.pathname = serverSessionId
-    sessionId = serverSessionId
   })
 
   socket.on("update", data => {
+    console.log(data, "on update", sessionId)
     if (data.sessionId !== sessionId) return
     setConfig(data.config)
+    setAdmin(data.admin)
   })
 
   const onSaveConfiguration = newConfig => {
@@ -52,11 +54,14 @@ const App = () => {
     welcome: <Welcome />,
     configuration: (
       <Configuration
+        admin={admin}
         onConfigurationSave={onSaveConfiguration}
         config={config}
       />
     ),
-    form: <Form config={config} setConfig={onSaveConfiguration} />,
+    form: (
+      <Form config={config} setConfig={onSaveConfiguration} admin={admin} />
+    ),
   }
 
   const widePages = ["results", "form"]
@@ -69,7 +74,11 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <NavigationBar goToPage={goToPage} currentPage={navigation} />
+      <NavigationBar
+        admin={admin}
+        goToPage={goToPage}
+        currentPage={navigation}
+      />
       <MainContent wide={widePages.includes(navigation)}>
         {pages[navigation]}
       </MainContent>

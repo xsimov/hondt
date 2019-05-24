@@ -2,6 +2,7 @@ import React from "react"
 import styled from "@emotion/styled"
 import { PrimaryNav, NavItem } from "mineral-ui/Navigation"
 import Text from "mineral-ui/Text"
+import Tooltip from "mineral-ui/Tooltip"
 
 const Navigation = styled(PrimaryNav)`
   justify-content: space-between;
@@ -10,8 +11,25 @@ const AppTitle = styled(Text)`
   line-height: 1.5;
   color: white;
 `
+const AdminLabel = styled(Text)`
+  border: 2px solid ${({ theme }) => theme.borderColor_danger};
+  background: ${({ theme }) => theme.backgroundColor_dangerPrimary_hover};
+  margin: 0;
+  align-items: center;
+  display: flex;
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  font-family: monospace;
+  cursor: default;
 
-const NavigationBar = ({ goToPage, currentPage }) => (
+  &:hover {
+    border: 2px solid ${({ theme }) => theme.borderColor_danger_active};
+    background: ${({ theme }) => theme.backgroundColor_dangerPrimary_active};
+  }
+`
+
+const NavigationBar = ({ admin, goToPage, currentPage }) => (
   <Navigation>
     <AppTitle as="h1" noMargins>
       <span role="img" aria-label="abacus" style={{ display: "inline-block" }}>
@@ -19,6 +37,16 @@ const NavigationBar = ({ goToPage, currentPage }) => (
       </span>{" "}
       Calculadora de regidors
     </AppTitle>
+    {admin ? (
+      <Tooltip
+        css={{ alignSelf: "center" }}
+        content="Només tu pots editar les dades"
+      >
+        <AdminLabel noMargins>ADMIN</AdminLabel>
+      </Tooltip>
+    ) : (
+      <></>
+    )}
     <Navigation as="div">
       <NavItem
         onClick={() => goToPage("welcome")}
