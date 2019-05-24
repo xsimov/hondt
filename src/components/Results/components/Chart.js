@@ -52,6 +52,7 @@ const ResultsChart = ({ parties }) => {
         circumference: Math.PI,
         rotation: Math.PI,
         cutoutPercentage: 40,
+        animation: { animateRotate: false },
         elements: {
           arc: {
             backgroundColor: "rgba(0,0,0,0.1)",

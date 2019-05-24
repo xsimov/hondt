@@ -12,11 +12,6 @@ const dhondtCalculation = (parties, totalSeats, cutOutPercentage = 0) => {
   )
 
   const totalVotes = totalVotesAllParties.filter(p => {
-    console.log(
-      p.total,
-      cutOutPercentage,
-      absolutNumberOfVotes * (cutOutPercentage / 100)
-    )
     return p.total > absolutNumberOfVotes * (cutOutPercentage / 100)
   })
 

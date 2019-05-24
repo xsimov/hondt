@@ -38,7 +38,6 @@ const App = () => {
   })
 
   socket.on("update", data => {
-    console.log(data, "on update", sessionId)
     if (data.sessionId !== sessionId) return
     setConfig(data.config)
     setAdmin(data.admin)
