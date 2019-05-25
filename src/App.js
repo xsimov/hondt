@@ -9,6 +9,7 @@ import Results from "./components/Results"
 import Form from "./components/Form"
 
 import defaultConfig from "./defaultConfig.json"
+import { getSessionId } from "./utils"
 
 const MainContent = styled.div`
   display: flex;
@@ -20,18 +21,38 @@ const MainContent = styled.div`
 // const socket = openSocket("http://localhost:8088")
 const socket = openSocket("wss://jp.xsimov.com:8020")
 
-let sessionId = window.location.pathname
+const [sessionId, possibleRoute] = getSessionId()
 
-if (sessionId.replace("/", "").length) {
+if (sessionId.length) {
   socket.emit("load", { sessionId: sessionId })
 } else {
   socket.emit("create")
 }
 
+const useNavigation = initialValue => {
+  const possiblePages = ["welcome", "results", "form", "configuration"]
+
+  const [navigation, setNavigation] = useState(
+    possiblePages.includes(initialValue) ? initialValue : "welcome"
+  )
+
+  const goToPage = pageName => {
+    if (possiblePages.includes(pageName)) {
+      window.history.pushState({}, "", `/${sessionId}/${pageName}`)
+      return setNavigation(pageName)
+    }
+
+    window.history.pushState({}, "", `/${sessionId}/results`)
+    setNavigation("results")
+  }
+
+  return [navigation, goToPage]
+}
+
 const App = () => {
-  const [navigation, setNavigation] = useState("welcome")
   const [config, setConfig] = useState(defaultConfig)
   const [admin, setAdmin] = useState(false)
+  const [navigation, goToPage] = useNavigation(possibleRoute)
 
   socket.on("created", ({ sessionId: serverSessionId }) => {
     window.location.pathname = serverSessionId
@@ -65,12 +86,6 @@ const App = () => {
   }
 
   const widePages = ["results", "form"]
-
-  const goToPage = pageName => {
-    if (Object.keys(pages).includes(pageName)) return setNavigation(pageName)
-
-    setNavigation("results")
-  }
 
   return (
     <React.Fragment>
