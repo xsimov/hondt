@@ -71,7 +71,7 @@ const App = () => {
     window.history.pushState(
       {},
       "",
-      `${window.location.href}/${serverSessionId}`
+      `${window.location.href}${serverSessionId}`
     )
   })
 
