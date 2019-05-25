@@ -40,11 +40,19 @@ const useNavigation = initialValue => {
 
   const goToPage = pageName => {
     if (possiblePages.includes(pageName)) {
-      window.history.pushState({}, "", `/${sessionId}/${pageName}`)
+      window.history.pushState(
+        {},
+        "",
+        `${window.location.origin}/${sessionId}/${pageName}`
+      )
       return setNavigation(pageName)
     }
 
-    window.history.pushState({}, "", `/${sessionId}/results`)
+    window.history.pushState(
+      {},
+      "",
+      `${window.location.origin}/${sessionId}/results`
+    )
     setNavigation("results")
   }
 
@@ -60,7 +68,11 @@ const App = () => {
   socket.on("created", ({ sessionId: serverSessionId, admin, config }) => {
     setConfig(config)
     setAdmin(admin)
-    window.history.pushState({}, "", `/${serverSessionId}`)
+    window.history.pushState(
+      {},
+      "",
+      `${window.location.href}/${serverSessionId}`
+    )
   })
 
   socket.on("update", data => {
