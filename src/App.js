@@ -32,7 +32,7 @@ if (sessionId.length) {
 }
 
 const useNavigation = initialValue => {
-  const possiblePages = ["welcome", "results", "form", "configuration"]
+  const possiblePages = ["welcome", "results", "votes", "configuration"]
 
   const [navigation, setNavigation] = useState(
     possiblePages.includes(initialValue) ? initialValue : "welcome"
@@ -109,12 +109,12 @@ const App = () => {
         copyDataToANewSession={copyDataToANewSession}
       />
     ),
-    form: (
+    votes: (
       <Form config={config} setConfig={onSaveConfiguration} admin={admin} />
     ),
   }
 
-  const widePages = ["results", "form"]
+  const widePages = ["results", "votes"]
 
   return (
     <React.Fragment>

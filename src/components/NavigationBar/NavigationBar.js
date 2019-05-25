@@ -96,8 +96,8 @@ const NavigationBar = ({ admin, goToPage, currentPage }) => (
         Configuració
       </NavItem>
       <NavItem
-        onClick={() => goToPage("form")}
-        selected={currentPage === "form"}
+        onClick={() => goToPage("votes")}
+        selected={currentPage === "votes"}
       >
         <span
           role="img"
