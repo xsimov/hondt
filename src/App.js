@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import styled from "@emotion/styled"
 import openSocket from "socket.io-client"
+import Dialog, { DialogBody } from "mineral-ui/Dialog"
+import Text from "mineral-ui/Text"
 
 import NavigationBar from "./components/NavigationBar"
 import Configuration from "./components/Configuration"
@@ -53,6 +55,7 @@ const App = () => {
   const [config, setConfig] = useState(defaultConfig)
   const [admin, setAdmin] = useState(false)
   const [navigation, goToPage] = useNavigation(possibleRoute)
+  const [duplicatingData, setDuplicatingData] = useState(false)
 
   socket.on("created", ({ sessionId: serverSessionId, admin, config }) => {
     setConfig(config)
@@ -72,6 +75,17 @@ const App = () => {
     socket.emit("save", { data: newConfig, sessionId: sessionId })
   }
 
+  const copyDataToANewSession = newConfig => {
+    socket.on("duplicated", ({ sessionId: newSessionId }) => {
+      setTimeout(() => {
+        window.location.pathname = `/${newSessionId}/configuration`
+      }, 4000)
+    })
+
+    socket.emit("duplicate", { data: newConfig })
+    setDuplicatingData(true)
+  }
+
   const pages = {
     results: <Results parties={config.parties} />,
     welcome: <Welcome />,
@@ -80,6 +94,7 @@ const App = () => {
         admin={admin}
         onConfigurationSave={onSaveConfiguration}
         config={config}
+        copyDataToANewSession={copyDataToANewSession}
       />
     ),
     form: (
@@ -98,6 +113,25 @@ const App = () => {
       />
       <MainContent wide={widePages.includes(navigation)}>
         {pages[navigation]}
+        <Dialog
+          isOpen={duplicatingData}
+          title="🕰Estem duplicant les dades..."
+          closeOnClickOutside={false}
+          closeOnEscape={false}
+          disableFocusTrap
+          disableFocusOnOpen
+        >
+          <DialogBody>
+            <Text appearance="prose">
+              La pàgina recarregarà sola amb les mateixes dades en una nova
+              sessió per a que puguis editar-les.
+            </Text>
+            <Text appearance="prose">
+              Els participants d'aquesta sessió on ets ara no veuran els canvis,
+              però els pots compartir el link de la nova per a que els vegin!
+            </Text>
+          </DialogBody>
+        </Dialog>
       </MainContent>
     </React.Fragment>
   )

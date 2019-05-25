@@ -26,7 +26,12 @@ const PaginationButtons = styled.div`
   }
 `
 
-const Configuration = ({ onConfigurationSave, config, admin }) => {
+const Configuration = ({
+  onConfigurationSave,
+  config,
+  admin,
+  copyDataToANewSession,
+}) => {
   const [seatsNumber, setSeatsNumber] = useSeats(config.totalSeats)
   const [cutOutPercentage, setCutOutPercentage] = useCutOutPercentage(
     config.cutOut
@@ -57,13 +62,19 @@ const Configuration = ({ onConfigurationSave, config, admin }) => {
     setPlaces(config.places)
   }, [config])
 
+  const currentDataFormatted = () => ({
+    totalSeats: seatsNumber,
+    cutOut: cutOutPercentage,
+    parties: dhondtCalculation(parties, seatsNumber, cutOutPercentage),
+    places: places,
+  })
+
   const onSave = () => {
-    onConfigurationSave({
-      totalSeats: seatsNumber,
-      cutOut: cutOutPercentage,
-      parties: dhondtCalculation(parties, seatsNumber, cutOutPercentage),
-      places: places,
-    })
+    onConfigurationSave(currentDataFormatted())
+  }
+
+  const onDuplicatingSession = () => {
+    copyDataToANewSession(currentDataFormatted())
   }
 
   const Step = steps[currentStep]
@@ -117,6 +128,18 @@ const Configuration = ({ onConfigurationSave, config, admin }) => {
         </span>
         Guardar!
       </Button>
+      {!admin && (
+        <Button secondary onClick={onDuplicatingSession}>
+          <span
+            role="img"
+            aria-label="pencil-and-paper"
+            style={{ display: "inline-block" }}
+          >
+            📝
+          </span>
+          Copiar les dades a una nova sessió
+        </Button>
+      )}
     </FormWrapper>
   )
 }
