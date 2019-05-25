@@ -26,7 +26,7 @@ const PaginationButtons = styled.div`
   }
 `
 
-const Configuration = ({ onConfigurationSave, config }) => {
+const Configuration = ({ onConfigurationSave, config, admin }) => {
   const [seatsNumber, setSeatsNumber] = useSeats(config.totalSeats)
   const [cutOutPercentage, setCutOutPercentage] = useCutOutPercentage(
     config.cutOut
@@ -107,7 +107,7 @@ const Configuration = ({ onConfigurationSave, config }) => {
         updatePlace={updatePlace}
       />
 
-      <Button primary onClick={onSave}>
+      <Button primary disabled={!admin} onClick={onSave}>
         <span
           role="img"
           aria-label="disquette"

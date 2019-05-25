@@ -12,8 +12,13 @@ const AppTitle = styled(Text)`
   color: white;
 `
 const AdminLabel = styled(Text)`
-  border: 2px solid ${({ theme }) => theme.borderColor_danger};
-  background: ${({ theme }) => theme.backgroundColor_dangerPrimary_hover};
+  border: 2px solid
+    ${({ visitor, theme }) =>
+      visitor ? theme.borderColor_warning : theme.borderColor_danger};
+  background: ${({ visitor, theme }) =>
+    visitor
+      ? theme.backgroundColor_warningPrimary_hover
+      : theme.backgroundColor_dangerPrimary_hover};
   margin: 0;
   align-items: center;
   display: flex;
@@ -37,16 +42,30 @@ const NavigationBar = ({ admin, goToPage, currentPage }) => (
       </span>{" "}
       Calculadora de regidors
     </AppTitle>
-    {admin ? (
-      <Tooltip
-        css={{ alignSelf: "center" }}
-        content="Només tu pots editar les dades"
-      >
-        <AdminLabel noMargins>ADMIN</AdminLabel>
-      </Tooltip>
-    ) : (
-      <></>
-    )}
+    <Tooltip
+      css={{ alignSelf: "center" }}
+      content={
+        admin
+          ? "Només tu pots editar les dades"
+          : "No pots editar les dades, però a la configuració pots copiar-les en una sessió nova"
+      }
+    >
+      {admin ? (
+        <AdminLabel noMargins>
+          <span aria-label="eye" role="img">
+            🖋
+          </span>
+          EDITOR
+        </AdminLabel>
+      ) : (
+        <AdminLabel noMargins visitor>
+          <span aria-label="eye" role="img">
+            👁
+          </span>
+          VISITANT
+        </AdminLabel>
+      )}
+    </Tooltip>
     <Navigation as="div">
       <NavItem
         onClick={() => goToPage("welcome")}
