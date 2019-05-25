@@ -54,8 +54,10 @@ const App = () => {
   const [admin, setAdmin] = useState(false)
   const [navigation, goToPage] = useNavigation(possibleRoute)
 
-  socket.on("created", ({ sessionId: serverSessionId }) => {
-    window.location.pathname = serverSessionId
+  socket.on("created", ({ sessionId: serverSessionId, admin, config }) => {
+    setConfig(config)
+    setAdmin(admin)
+    window.history.pushState({}, "", `/${serverSessionId}`)
   })
 
   socket.on("update", data => {
