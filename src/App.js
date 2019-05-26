@@ -20,13 +20,18 @@ const MainContent = styled.div`
   padding-top: 2rem;
 `
 
-// const socket = openSocket("http://localhost:8088")
-const socket = openSocket("wss://jp.xsimov.com:8020")
+const localVariableName = "dhondtToken"
+
+const socket = openSocket("http://localhost:8088")
+// const socket = openSocket("wss://jp.xsimov.com:8020")
 
 const [sessionId, possibleRoute] = getSessionId()
 
 if (sessionId.length) {
-  socket.emit("load", { sessionId: sessionId })
+  socket.emit("load", {
+    sessionId: sessionId,
+    adminToken: window.localStorage[localVariableName],
+  })
 } else {
   socket.emit("create")
 }
@@ -59,26 +64,40 @@ const useNavigation = initialValue => {
   return [navigation, goToPage]
 }
 
+const useAdmin = () => {
+  const [admin, setAdmin] = useState(false)
+
+  const saveAdminAndToken = (adminFlag, adminToken) => {
+    console.log(
+      "saving admin",
+      adminToken,
+      window.localStorage[localVariableName]
+    )
+    window.localStorage[localVariableName] = adminToken
+    setAdmin(adminFlag)
+  }
+
+  return [admin, saveAdminAndToken]
+}
+
 const App = () => {
   const [config, setConfig] = useState(defaultConfig)
-  const [admin, setAdmin] = useState(false)
+  const [admin, setAdminAndToken] = useAdmin()
   const [navigation, goToPage] = useNavigation(possibleRoute)
   const [duplicatingData, setDuplicatingData] = useState(false)
 
-  socket.on("created", ({ sessionId: serverSessionId, admin, config }) => {
-    setConfig(config)
-    setAdmin(admin)
-    window.history.pushState(
-      {},
-      "",
-      `${window.location.href}${serverSessionId}`
-    )
+  socket.on("created", data => {
+    setConfig(data.config)
+    setAdminAndToken(data.admin, data.adminToken)
+    window.history.pushState({}, "", `${window.location.href}${data.sessionId}`)
   })
 
   socket.on("update", data => {
     if (data.sessionId !== sessionId) return
+
     setConfig(data.config)
-    setAdmin(data.admin)
+
+    if (!admin) setAdminAndToken(data.admin, data.adminToken)
   })
 
   const onSaveConfiguration = newConfig => {
@@ -88,8 +107,9 @@ const App = () => {
   }
 
   const copyDataToANewSession = newConfig => {
-    socket.on("duplicated", ({ sessionId: newSessionId }) => {
+    socket.on("duplicated", ({ sessionId: newSessionId, adminToken }) => {
       setTimeout(() => {
+        window.localStorage[localVariableName] = adminToken
         window.location.pathname = `/${newSessionId}/configuration`
       }, 4000)
     })
